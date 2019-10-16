@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+
+  mdb:
+    image: mariadb
+    environment:
+    - MYSQL_ROOT_PASSWORD=root
+
+  pma:
+    image: phpmyadmin/phpmyadmin
+    environment:
+    - PMA_HOST=mdb
+    ports:
+     - 8085:80
+    depends_on:
+    - mdb
+  
+  mh:
+    image: mailhog/mailhog
+    ports:
+     - 1025:1025
+     - 8025:8025
+    environment:
+     - MH_STORAGE=maildir
+    depends_on:
+    - mdb
+
+  php-apache:
+    build: .
+    volumes:
+     - ./projetX:/var/www/html
