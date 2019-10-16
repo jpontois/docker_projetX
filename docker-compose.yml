@@ -10,8 +10,6 @@ services:
     image: phpmyadmin/phpmyadmin
     environment:
     - PMA_HOST=mdb
-    ports:
-     - 8085:80
     depends_on:
     - mdb
   
@@ -26,6 +24,10 @@ services:
     - mdb
 
   php-apache:
-    build: .
+    image: php:7.2-apache
     volumes:
      - ./projetX:/var/www/html
+    ports:
+     - 8081:80
+    depends_on:
+    - mdb
