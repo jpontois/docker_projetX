@@ -16,18 +16,18 @@ services:
   mh:
     image: mailhog/mailhog
     ports:
-     - 1025:1025
-     - 8025:8025
+    - "1025:1025"
+    - "8025:8025"
     environment:
-     - MH_STORAGE=maildir
+    - MH_STORAGE=maildir
     depends_on:
     - mdb
 
   php-apache:
-    image: php:7.2-apache
+    build: .
     volumes:
-     - ./projetX:/var/www/html
+    - .:/var/www/html
     ports:
-     - 8081:80
+    - "8081:80"
     depends_on:
     - mdb
